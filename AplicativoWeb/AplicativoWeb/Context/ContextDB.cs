@@ -19,10 +19,19 @@ namespace AplicativoWeb.Context
 
         public DbSet<Servicio> Servicios { get; set; }
 
+        public DbSet<Pais> Pais { get; set; }
+        public DbSet<ClienteXServicio> ClienteXServicios { get; set; }
+
+        public DbSet<ClienteSevicioXPais> ClienteSevicioXPais { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
             modelBuilder.Entity<Servicio>().ToTable("Servicios");
+            modelBuilder.Entity<Pais>().ToTable("Pais");
+            modelBuilder.Entity<ClienteXServicio>().ToTable("ClienteXServicios");
+            modelBuilder.Entity<ClienteSevicioXPais>().ToTable("ClienteSevicioXPais");
+           
 
         }
 

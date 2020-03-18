@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace AplicativoWeb.Models
 {
-    public class Cliente
+    public class ClienteSevicioXPais
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Correo { get; set; }
-       List<ClienteXServicio> ClienteXServicios { get; set; }
+        public int ClienteXServicioId { get; set; }
+        public int PaisId { get; set; }
     }
 }

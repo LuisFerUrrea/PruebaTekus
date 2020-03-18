@@ -12,6 +12,10 @@ namespace AplicativoWeb.Context
     {
         DbSet<Cliente> Clientes { get; set; }
         DbSet<Servicio> Servicios { get; set; }
+        DbSet<Pais> Pais { get; set; }
+        DbSet<ClienteXServicio> ClienteXServicios { get; set; }
+        DbSet<ClienteSevicioXPais> ClienteSevicioXPais { get; set; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
