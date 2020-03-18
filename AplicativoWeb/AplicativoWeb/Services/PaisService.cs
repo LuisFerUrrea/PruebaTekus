@@ -10,22 +10,40 @@ using System.Threading.Tasks;
 
 namespace AplicativoWeb.Services
 {
-    public class ServicioService: IServicioService
+    public class PaisService: IPaisService
     {
         private readonly IContextDB _contextDB;
         private readonly MyResponse _myResponse;
 
-        public ServicioService(IContextDB contextDB,MyResponse myResponse)
+        public PaisService(IContextDB contextDB, MyResponse myResponse)
         {
             _contextDB = contextDB;
             _myResponse = myResponse;
         }
 
-        public MyResponse AddServicio(Servicio servicio)
+        public MyResponse AddPais(Pais pais)
         {
             try
             {
-                _contextDB.Servicios.Add(servicio);
+                _contextDB.Pais.Add(pais);
+                _contextDB.SaveChanges();
+                _myResponse.Success = 1;
+            }
+            catch (Exception ex)
+            {
+
+                _myResponse.Success = 0;
+                _myResponse.Message = ex.Message;
+            }
+            return _myResponse;
+        }
+
+        public MyResponse DeletePais([FromBody]PaisViewModel model)
+        {
+            try
+            {
+                Pais objPais = _contextDB.Pais.Find(model.Id);
+                _contextDB.Pais.Remove(objPais);
                 _contextDB.SaveChanges();
                 _myResponse.Success = 1;
             }
@@ -37,46 +55,33 @@ namespace AplicativoWeb.Services
             return _myResponse;
         }
 
-        public MyResponse DeleteServicio([FromBody]ServicioViewModel model)
+        public IEnumerable<PaisViewModel> ListPais()
         {
             try
             {
-                Servicio objServicio = _contextDB.Servicios.Find(model.Id);
-                _contextDB.Servicios.Remove(objServicio);
-                _contextDB.SaveChanges();
-                _myResponse.Success = 1;
+                List<PaisViewModel> lst = (from d in _contextDB.Pais
+                                              select new PaisViewModel
+                                              {
+                                                  Id = d.Id,
+                                                  Nombre = d.Nombre                                                 
+                                              }).ToList();
+                return lst;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _myResponse.Success = 0;
-                _myResponse.Message = ex.Message;
+
+                throw;
             }
-            return _myResponse;
         }
 
 
-
-        public IEnumerable<ServicioViewModel> ListServicios()
+        public MyResponse Add([FromBody]PaisViewModel model)
         {
-            List<ServicioViewModel> lst = (from d in _contextDB.Servicios
-                                          select new ServicioViewModel
-                                          {
-                                              Id = d.Id,
-                                              Nombre = d.Nombre,
-                                              ValorHora = d.ValorHora
-                                          }).ToList();
-            return lst;
-        }
-
-
-        public MyResponse Add([FromBody]ServicioViewModel model)
-        {          
             try
             {
-                Servicio objServicio = new Servicio();
-                objServicio.Nombre = model.Nombre;
-                objServicio.ValorHora = model.ValorHora;
-                _contextDB.Servicios.Add(objServicio);
+                Pais objPais = new Pais();
+                objPais.Nombre = model.Nombre;              
+                _contextDB.Pais.Add(objPais);
                 _contextDB.SaveChanges();
                 _myResponse.Success = 1;
             }

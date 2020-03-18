@@ -11,7 +11,7 @@ namespace AplicativoWeb.Services
 {
     public interface IServicioService
     {
-        void AddServicio(Servicio servicio);
+        MyResponse AddServicio(Servicio servicio);
 
         IEnumerable<ServicioViewModel> ListServicios();
 

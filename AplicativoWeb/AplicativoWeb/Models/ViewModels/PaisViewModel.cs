@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace AplicativoWeb.Models.ViewModels
 {
-    public class ClienteViewModel : General
+    public class PaisViewModel:General
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Correo { get; set; }
-
-        
     }
 }

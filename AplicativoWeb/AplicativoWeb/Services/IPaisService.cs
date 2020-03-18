@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace AplicativoWeb.Services
 {
-    public interface IClienteService
+    public interface IPaisService
     {
-        MyResponse AddCliente(Cliente cliente);
-        MyResponse DeleteCliente([FromBody]ClienteViewModel model);
-        IEnumerable<ClienteViewModel> ListCliente();
-        MyResponse Add([FromBody]ClienteViewModel model);
+        MyResponse AddPais(Pais pais);
+        MyResponse DeletePais([FromBody]PaisViewModel model);
+        IEnumerable<PaisViewModel> ListPais();
+        MyResponse Add([FromBody]PaisViewModel model);
     }
 }

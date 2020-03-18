@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AplicativoWeb.Models.ViewModels
 {
-    public class ServicioViewModel
+    public class ServicioViewModel:General
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
