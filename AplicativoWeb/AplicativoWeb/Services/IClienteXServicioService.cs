@@ -12,6 +12,5 @@ namespace AplicativoWeb.Services
     {
         IEnumerable<ClienteXServicioViewModel> ListClienteXServicio();
         MyResponse Add([FromBody]ClienteXServicioViewModel model);
-
     }
 }

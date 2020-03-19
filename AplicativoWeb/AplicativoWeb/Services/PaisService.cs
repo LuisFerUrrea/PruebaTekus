@@ -13,12 +13,11 @@ namespace AplicativoWeb.Services
     public class PaisService: IPaisService
     {
         private readonly IContextDB _contextDB;
-        private readonly MyResponse _myResponse;
+        private MyResponse _myResponse;
 
-        public PaisService(IContextDB contextDB, MyResponse myResponse)
+        public PaisService(IContextDB contextDB)
         {
-            _contextDB = contextDB;
-            _myResponse = myResponse;
+            _contextDB = contextDB;            
         }
 
         public MyResponse AddPais(Pais pais)

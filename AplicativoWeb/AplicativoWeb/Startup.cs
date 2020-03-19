@@ -24,6 +24,7 @@ namespace AplicativoWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
@@ -34,6 +35,8 @@ namespace AplicativoWeb
             services.AddTransient<IContextDB, ContextDB>();
             services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<IServicioService, ServicioService>();
+            services.AddTransient<IPaisService, PaisService>();
+            services.AddTransient<IClienteXServicioService, ClienteXServicioService>();        
             services.AddDbContext<ContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
         }

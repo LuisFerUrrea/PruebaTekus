@@ -15,12 +15,11 @@ namespace AplicativoWeb.Services
     {
         private readonly IContextDB _contextDB;       
         private readonly IMemoryCache _memoryCache;
-        private readonly MyResponse _myResponse;
+        private MyResponse _myResponse;
 
-        public ClienteService(IContextDB contextDB,IMemoryCache memoryCache, MyResponse myResponse)
+        public ClienteService(IContextDB contextDB,IMemoryCache memoryCache)
         {
             _contextDB = contextDB;
-            _myResponse = myResponse;
             _memoryCache = memoryCache;
         }
 

@@ -13,12 +13,11 @@ namespace AplicativoWeb.Services
     public class ServicioService: IServicioService
     {
         private readonly IContextDB _contextDB;
-        private readonly MyResponse _myResponse;
+        private MyResponse _myResponse;
 
-        public ServicioService(IContextDB contextDB,MyResponse myResponse)
+        public ServicioService(IContextDB contextDB)
         {
-            _contextDB = contextDB;
-            _myResponse = myResponse;
+            _contextDB = contextDB;            
         }
 
         public MyResponse AddServicio(Servicio servicio)
