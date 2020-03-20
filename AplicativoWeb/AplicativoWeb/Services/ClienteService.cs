@@ -77,6 +77,20 @@ namespace AplicativoWeb.Services
             }           
         }
 
+        public Cliente GetCliente(int id)
+        {
+            try
+            {
+                Cliente objCliente = _contextDB.Clientes.Find(id);
+                return objCliente;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public MyResponse Add([FromBody]ClienteViewModel model)
         {           
             try

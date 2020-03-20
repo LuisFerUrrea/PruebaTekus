@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AplicativoWeb.Models;
 using AplicativoWeb.Models.Response;
 using AplicativoWeb.Models.ViewModels;
 using AplicativoWeb.Services;
@@ -23,6 +24,12 @@ namespace AplicativoWeb.Controllers
         public IEnumerable<ClienteViewModel> ListCliente()
         {
             return _clienteService.ListCliente();
+        }
+
+        [HttpGet("[action]")]
+        public Cliente GetCliente(int id)
+        {
+            return _clienteService.GetCliente(id);
         }
 
         [HttpPost("[action]")]
