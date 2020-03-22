@@ -39,6 +39,12 @@ namespace AplicativoWeb.Controllers
         }
 
         [HttpPost("[action]")]
+        public MyResponse Edit([FromBody]ClienteViewModel model)
+        {
+            return _clienteService.Edit(model);
+        }
+
+        [HttpPost("[action]")]
         public MyResponse Delete([FromBody]ClienteViewModel model)
         {
             return _clienteService.DeleteCliente(model);

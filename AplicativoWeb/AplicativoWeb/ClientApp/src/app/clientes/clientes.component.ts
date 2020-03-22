@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ClienteService } from '../services/cliente.service';
 import { Cliente } from '../Interfaces';
-//import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-clientes',
@@ -15,7 +15,6 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[] = [];
   cargando = false;
-
 
   constructor(private clienteService: ClienteService) { }
 
@@ -28,24 +27,19 @@ export class ClientesComponent implements OnInit {
       });
   }
 
-  //borrarCliente(cliente: Cliente, i: number) {
-
+  borrarCliente(cliente: Cliente) {
+    console.log(cliente.Nombre);
   //  Swal.fire({
   //    title: '¿Está seguro?',
   //    text: `Está seguro que desea borrar a ${cliente.Nombre}`,
-  //    type: 'question',
   //    showConfirmButton: true,
   //    showCancelButton: true
   //  }).then(resp => {
 
   //    if (resp.value) {
   //      this.clientes.splice(i, 1);
-  //      this.clienteService.borrarCliente(cliente.Id).subscribe();
+  //      this.clienteService.delete(cliente);
   //    }
-
   //  });
-
-
-
   }
-
+}

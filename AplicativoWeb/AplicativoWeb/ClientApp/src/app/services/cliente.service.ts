@@ -28,46 +28,29 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.baseUrl + "api/Cliente/ListCliente");
   }
 
-  public GetCliente(id:number): Observable<Cliente> {
-    return this.http.get<Cliente>(`this.baseUrl + "api/Cliente/GetCliente/"${id}.json`);
+  public GetCliente(id): Observable<Cliente>{    
+    return this.http.get<Cliente>(this.baseUrl + "api/Cliente/GetCliente?id="+id);    
   }
 
-  //public Add(cliente: Cliente){
-  //  this.http.post<MyResponse>(this.baseUrl + "api/Cliente/Add", { 'model': cliente }, httpOptions).
-  //    subscribe(result => {
-  //      console.log(result);
-  //    },
-  //      error => console.error(error)
-  //    );
-  //}
-
-  public Add(cliente: Cliente) {
-    console.log(cliente.Nombre);
-    this.http.post<MyResponse>(this.baseUrl + "api/Cliente/Add",  cliente, httpOptions).
-      pipe(
-        map((resp: any) => {
-          //cliente.Id = resp.name;
-          return cliente;
-        })
-      );
+  public Add(cliente: Cliente): Observable<MyResponse>{
+    return this.http.post<MyResponse>(this.baseUrl + "api/Cliente/Add", { 'Nombre': cliente.Nombre, 'Correo': cliente.Correo, 'tipoAlmacenamiento': cliente.tipoAlmacenamiento}, httpOptions);
+      //subscribe(result => {
+      // return result;
+      //},
+      //  error => console.error(error)
+      //);
   }
-
-  //public Add(cliente: Cliente) {
-  //  return this.http.post(`${this.baseUrl}/api/Cliente/Add`, cliente)
-  //    .pipe(
-  //      map((resp: any) => {
-  //        //cliente.Id = resp.name;
-  //        return cliente;
-  //      })
-  //    );
-  //}
-
-
-
-
+  public Update(cliente: Cliente): Observable<MyResponse> {
+    return this.http.post<MyResponse>(this.baseUrl + "api/Cliente/Edit", { 'Id': cliente.Id, 'Nombre': cliente.Nombre, 'Correo': cliente.Correo, 'tipoAlmacenamiento': cliente.tipoAlmacenamiento}, httpOptions);
+    //subscribe(result => {
+    // return result;
+    //},
+    //  error => console.error(error)
+    //);
+  }
 
   public delete(cliente:Cliente) {
-    return this.http.post<MyResponse>(this.baseUrl + "api/Cliente/Delete", { 'model': cliente }, httpOptions).
+    return this.http.post<MyResponse>(this.baseUrl + "api/Cliente/Delete", { 'Id': cliente.Id }, httpOptions).
       subscribe(result => {
         console.log(result);
       },

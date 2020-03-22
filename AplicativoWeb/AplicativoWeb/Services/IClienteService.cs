@@ -15,7 +15,7 @@ namespace AplicativoWeb.Services
         MyResponse DeleteCliente([FromBody]ClienteViewModel model);
         IEnumerable<ClienteViewModel> ListCliente();
         MyResponse Add([FromBody]ClienteViewModel model);
-
+        MyResponse Edit([FromBody]ClienteViewModel model);
         Cliente GetCliente(int id);
     }
 }

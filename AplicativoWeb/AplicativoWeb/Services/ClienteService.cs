@@ -15,7 +15,7 @@ namespace AplicativoWeb.Services
     {
         private readonly IContextDB _contextDB;       
         private readonly IMemoryCache _memoryCache;
-        private MyResponse _myResponse;
+        private MyResponse _myResponse=new MyResponse();
 
         public ClienteService(IContextDB contextDB,IMemoryCache memoryCache)
         {
@@ -98,7 +98,7 @@ namespace AplicativoWeb.Services
                 _myResponse.Success = 0;               
                 if (model.tipoAlmacenamiento == "bd")
                 {
-                    Cliente objCliente = new Cliente();
+                    Cliente objCliente = new Cliente();                                    
                     objCliente.Nombre = model.Nombre;
                     objCliente.Correo = model.Correo;
                     _contextDB.Clientes.Add(objCliente);
@@ -117,6 +117,35 @@ namespace AplicativoWeb.Services
             }
             return _myResponse;
         }
+
+        public MyResponse Edit([FromBody]ClienteViewModel model)
+        {
+            try
+            {
+                _myResponse.Success = 0;
+                if (model.tipoAlmacenamiento == "bd")
+                {
+                    Cliente objCliente = new Cliente();
+                    objCliente.Id = model.Id;
+                    objCliente.Nombre = model.Nombre;
+                    objCliente.Correo = model.Correo;                                
+                    _contextDB.Clientes.Update(objCliente);
+                    _contextDB.SaveChanges();
+                    _myResponse.Success = 1;
+                }
+                else if (model.tipoAlmacenamiento == "cache")
+                {
+                    _memoryCache.Set("EditCliente", model);
+                    _myResponse.Success = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                _myResponse.Message = ex.Message;
+            }
+            return _myResponse;
+        }
+
 
     }
 }
