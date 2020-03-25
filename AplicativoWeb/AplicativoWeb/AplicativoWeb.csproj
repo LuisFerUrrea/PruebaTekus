@@ -32,17 +32,21 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\app-routing.module.ts" />
+    <None Remove="ClientApp\src\app\ClienteServicio\clienteservicio.component.ts" />
     <None Remove="ClientApp\src\app\clientes\clientes.component.ts" />
     <None Remove="ClientApp\src\app\cliente\cliente.component.ts" />
     <None Remove="ClientApp\src\app\Interfaces.ts" />
+    <None Remove="ClientApp\src\app\material.module.ts" />
     <None Remove="ClientApp\src\app\services\cliente.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ClienteServicio\clienteservicio.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\clientes\clientes.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\cliente\cliente.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\material.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\cliente.service.ts" />
   </ItemGroup>
 

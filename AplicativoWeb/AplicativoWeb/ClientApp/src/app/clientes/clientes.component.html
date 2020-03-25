@@ -1,6 +1,11 @@
+<style>
+  mat-table {
+    width: 100%;
+  }
+</style>
+
 <h1>Listado de Clientes</h1>
 <hr>
-
 
 <div class="row">
   <div class="col text-right">
@@ -12,50 +17,40 @@
   </div>
 </div>
 
-
-<table *ngIf="!cargando && clientes.length > 0" class="table mt-3 animated fadeIn faster animated fadeIn faster">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Correo</th>    
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let client of clientes; let i = index">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ client.nombre }}</td>
-      <td>{{ client.correo }}</td>     
-      <td>
-        <button class="btn btn-info mr-1"
-                [routerLink]="['/cliente', client.id ]">
-          <i class="fa fa-pen"></i>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource">
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Id. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+    </ng-container>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="correo">
+      <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.correo}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef> Editar / Eliminar </mat-header-cell>
+      <mat-cell *matCellDef="let element;  let j = index;">
+        <button mat-raised-button color="primary" focusable="false" [routerLink]="['/cliente', element.id ]">
+          Edtar
         </button>
-
-        <button class="btn btn-danger"
-                (click)="borrarCliente(client) ">
-          <i class="fa fa-trash"></i>
+        <button mat-raised-button color="warn" focusable="false" (click)="borrarCliente(element.id,element.nombre)">
+          Eliminar
         </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<div *ngIf="!cargando && clientes.length === 0"
-     class="alert alert-warning text-center mt-3 animated fadeIn faster">
-  <h4 class="alert-heading">No hay registros</h4>
-  <p>
-    <i class="fa fa-exclamation fa-2x"></i>
-  </p>
+      </mat-cell>          
+    </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
 </div>
 
-<div *ngIf="cargando"
-     class="alert alert-info text-center mt-3 animated fadeIn faster">
-  <h4 class="alert-heading">Cargando</h4>
-  <p>
-    <i class="fa fa-sync-alt fa-spin fa-2x"></i>
-  </p>
-  <p class="mb-0">
-    Espere por favor
-  </p>
-</div>
+
+
+

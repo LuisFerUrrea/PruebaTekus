@@ -1,0 +1,43 @@
+<style>
+  table {
+    width: 100%;
+  }
+</style>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="datos">
+    <ng-container matColumnDef="codigo">
+      <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+      <mat-cell *matCellDef="let articulo"> {{articulo.codigo}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+      <mat-cell *matCellDef="let articulo"> {{articulo.descripcion}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="precio">
+      <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+      <mat-cell *matCellDef="let articulo"> {{articulo.precio}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="borrar">
+      <mat-header-cell *matHeaderCellDef> Borra? </mat-header-cell>
+      <mat-cell *matCellDef="let j = index;">
+        <button mat-raised-button color="warn" focusable="false" (click)="borrarFila(j)">
+          Borra?
+        </button>
+      </mat-cell>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+  </div>
+    <div class="contenedor">
+      <mat-form-field>
+        <input matInput [(ngModel)]="articuloselect.codigo" type="number" placeholder="Ingrese código">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="articuloselect.descripcion" type="text" placeholder="Ingrese descripción">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="articuloselect.precio" type="number" placeholder="Ingrese precio">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="agregar()">Agregar</button>
+    </div>
