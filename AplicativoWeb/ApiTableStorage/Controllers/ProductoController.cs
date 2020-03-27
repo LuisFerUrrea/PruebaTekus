@@ -15,7 +15,7 @@ namespace ApiTableStorage.Controllers
     [ApiController]
     public class ProductoController : ControllerBase
     {
-        string storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=123459876;AccountKey=X9XmzmV0xX6AG/WYCXSA8BrrrCF0M4j3X4zFDgJZ5g9hRwPafsIjAWk2kgjLZmj6YSxJGIikJDsLmvxgEfGWTQ==";
+        string storageConnectionString = "xxxxxxxxxxxx";
         // GET: api/Producto
         [HttpGet("[action]")]
         public async Task<List<Producto>> Read()
