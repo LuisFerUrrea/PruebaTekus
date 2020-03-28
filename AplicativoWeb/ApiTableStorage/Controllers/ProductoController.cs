@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiTableStorage.Models;
+using ApiTableStorage.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.WindowsAzure.Storage;
@@ -14,26 +15,48 @@ namespace ApiTableStorage.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ProductoController : ControllerBase
-    {
-        string storageConnectionString = "xxxxxxxxxxxx";
-        // GET: api/Producto
+    {        
+        private readonly IProductoService _productoService;
+        public ProductoController(IProductoService productoService)
+        {
+            this._productoService = productoService;
+        }
+        
         [HttpGet("[action]")]
         public async Task<List<Producto>> Read()
         {
             try
             {
+               List<Producto> listProducto=await _productoService.Read();
+               return listProducto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
-                CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-                CloudTable tableProductos = tableClient.GetTableReference("Productos");
-                List<Producto> listProducto = new List<Producto>();
-                TableQuery<Producto> query = new TableQuery<Producto>();
-                string filter = "";
-                TableContinuationToken token = null;
-                query = query.Where(filter);
-                var prods = await tableProductos.ExecuteQuerySegmentedAsync(query, token);
-                listProducto = prods.Results.ToList();
-                return listProducto;
+        [HttpPost("[action]")]
+        public async Task<Producto> Create([FromBody]Producto model)
+        {
+            try
+            {
+                Producto producto = await _productoService.Create(model);
+                return producto;             
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPut("[action]")]
+        public async Task<Producto> Update([FromBody]Producto model)
+        {
+            try
+            {
+                Producto producto = await _productoService.Update(model);
+                return producto;
             }
             catch (Exception ex)
             {
@@ -42,101 +65,19 @@ namespace ApiTableStorage.Controllers
         }
 
 
-        [HttpPost("[action]")]
-        public async Task<Producto> Create([FromBody]Producto model)
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-
-            CloudTable tableProductos = tableClient.GetTableReference("Productos");
-
-            Producto prod1 = new Producto(model.PartitionKey, model.RowKey)
-            {
-                Id = model.Id,
-                Caracteristicas = model.Caracteristicas,
-                CorreoFabricante = model.CorreoFabricante,
-                EstadoRevision = model.EstadoRevision,
-                HoraRevision = DateTime.Now,
-                Nombre = model.Nombre,
-                Precio = model.Precio,
-                UnidadesDisponibles = model.UnidadesDisponibles,
-                UnidadesVendidas = model.UnidadesVendidas,
-                Categorias = model.Categorias,
-                Creador = model.Categorias,
-                Descripcion = model.Descripcion,
-                Estudio = model.Estudio,
-                FechaLanzamiento = DateTime.Now,
-                IdVideojuego = model.IdVideojuego
-            };
-            TableBatchOperation batchOperation = new TableBatchOperation();
-            batchOperation.Insert(prod1);
-            await tableProductos.ExecuteBatchAsync(batchOperation);
-            return prod1;
-        }
-
-        [HttpPost("[action]")]
-        public async Task<Producto> Update([FromBody]Producto model)
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-
-            CloudTable tableProductos = tableClient.GetTableReference("Productos");
-
-            Producto prod1 = new Producto(model.PartitionKey, model.RowKey)
-            {
-                Id = model.Id,
-                Caracteristicas = model.Caracteristicas,
-                CorreoFabricante = model.CorreoFabricante,
-                EstadoRevision = model.EstadoRevision,
-                HoraRevision = DateTime.Now,
-                Nombre = model.Nombre,
-                Precio = model.Precio,
-                UnidadesDisponibles = model.UnidadesDisponibles,
-                UnidadesVendidas = model.UnidadesVendidas,
-                Categorias = model.Categorias,
-                Creador = model.Categorias,
-                Descripcion = model.Descripcion,
-                Estudio = model.Estudio,
-                FechaLanzamiento = DateTime.Now,
-                IdVideojuego = model.IdVideojuego
-            };
-            TableBatchOperation batchOperation = new TableBatchOperation();
-            batchOperation.InsertOrMerge(prod1);
-            await tableProductos.ExecuteBatchAsync(batchOperation);
-            return prod1;
-        }
-
-
-        [HttpPost("[action]")]
+        [HttpDelete("[action]")]
         public async Task<Producto> Delete([FromBody]Producto model)
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-
-            CloudTable tableProductos = tableClient.GetTableReference("Productos");
-
-            Producto prod1 = new Producto(model.PartitionKey, model.RowKey)
+            try
             {
-                Id = model.Id,
-                Caracteristicas = model.Caracteristicas,
-                CorreoFabricante = model.CorreoFabricante,
-                EstadoRevision = model.EstadoRevision,
-                HoraRevision = DateTime.Now,
-                Nombre = model.Nombre,
-                Precio = model.Precio,
-                UnidadesDisponibles = model.UnidadesDisponibles,
-                UnidadesVendidas = model.UnidadesVendidas,
-                Categorias = model.Categorias,
-                Creador = model.Categorias,
-                Descripcion = model.Descripcion,
-                Estudio = model.Estudio,
-                FechaLanzamiento = DateTime.Now,
-                IdVideojuego = model.IdVideojuego
-            };
-            TableBatchOperation batchOperation = new TableBatchOperation();
-            batchOperation.Delete(prod1);
-            await tableProductos.ExecuteBatchAsync(batchOperation);
-            return prod1;
+                Producto producto = await _productoService.Delete(model);
+                return producto;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
     }
